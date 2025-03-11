@@ -17,7 +17,7 @@ class llama3Instruct3(SingleConvo):
       top_k=5,temperature=0.05,repetition_penalty=1.2,
       max_new_tokens=500,
       truncation=True,
-    pad_token_id=self.pipe.tokenizer.eos_token_id,)
+      pad_token_id=self.pipe.tokenizer.eos_token_id,)
         # print("RESPONSE",response,"\n")
         return response[0]["generated_text"][-1]["content"]
 
