@@ -3,11 +3,26 @@ __all__ = ["query_model"]
 from transformers import pipeline
 import torch
 
+from openai import OpenAI
+
 def query_model(model_name,transformer_model=None):
     if transformer_model:
         return TransformerModel(model_name,transformer_model)
     else:
-        return None
+        client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key="<OPENROUTER_API_KEY>",
+        )
+        completion = client.chat.completions.create(
+        model="openai/gpt-4o",
+        messages=[
+            {
+            "role": "user",
+            "content": "What is the meaning of life?"
+            }
+        ]
+        )
+
 
 
 class TransformerModel():
@@ -22,3 +37,8 @@ class TransformerModel():
             return [ out["generated_text"] for out in output]
         elif(formatting == "instructional_agent"):
             return [ out[0]["generated_text"][-1]["content"] for out in self.pipe(query)]
+        
+
+
+
+
