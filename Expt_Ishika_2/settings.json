@@ -1,0 +1,4 @@
+ This is runing on gemma and llama judge with qwen and llama as query models
+{"user":"Ishika","expt_id":"2"}
+{"query_models":[('text-generation', 'mistralai/Mistral-7B-Instruct-v0.3', 'instructional_agent', 'instructional_agent')]}
+{"judges":[('text-generation', 'meta-llama/Llama-3.1-8B-Instruct', 'instructional_agent', 'instructional_agent'), ('text-generation', 'google/gemma-2-2b-it', 'instructional_agent', 'instructional_agent')]}
