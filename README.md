@@ -28,3 +28,10 @@ Chat Bot Pusha Analysis and evaluation
   - [ ] System Name  
   - [ ] Error Acknowledge Response / Judge i  
   - [ ] Explanation Given Response / Judge i  
+
+  ## HOw to run
+    1. pip install -r requirements.txt
+    2. Update app.py with ur requirements
+    3. Make sure u have enough GPU or CPU space for running the models u add
+    4. give the file path to ur input file
+    5. Run app.py
