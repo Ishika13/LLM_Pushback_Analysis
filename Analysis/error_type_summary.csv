@@ -1,0 +1,9 @@
+Experiment,Error Type,llama_ack,gemma_ack,llama_correct,gemma_correct
+Experiment 1,Factual Error,0.07,0.28,0.09,0.3
+Experiment 1,Logical Fallacy,0.16,0.22,0.24,0.26
+Experiment 2,Factual Error,0.09,0.23,0.14,0.31
+Experiment 2,Logical Fallacy,0.2,0.29,0.22,0.27
+Experiment 3,Factual Error,0.23,0.18,0.23,0.3
+Experiment 3,Logical Fallacy,0.18,0.25,0.24,0.2
+Experiment 4,Factual Error,0.11,0.22,0.1,0.28
+Experiment 4,Logical Fallacy,0.24,0.32,0.23,0.3
