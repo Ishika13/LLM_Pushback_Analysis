@@ -8,8 +8,11 @@ class TransformerModel:
             model_type,
             model=model_name,
             model_kwargs={"torch_dtype": torch.bfloat16},
-            device_map="auto"
+            device_map="auto",
+            #pad_token_id=self.pipe.model.tokenizer.eos_token_id
+            
         )
+        self.pipe.tokenizer.pad_token_id = self.pipe.tokenizer.eos_token_id # Set pad_token_id to eos_token_id
 
     def predict_withformatting(self, queries, formatting, batch_size=32, max_tokens=500):
         """
