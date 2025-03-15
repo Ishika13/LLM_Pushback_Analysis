@@ -3,11 +3,12 @@ import sys
 import json
 import argparse
 import pandas as pd
+import time
 from datetime import datetime
 from pathlib import Path
 from QueryFormatters import get_query_formatter
 from QueryModels import query_model
-
+from tqdm import tqdm
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run experiment")
@@ -68,7 +69,8 @@ def create_output_folder(dataset_file, user, output_folder_base="results"):
 def run_queries(dataset_df, query_models, output_folder):
     results = []
     
-    for idx, model_conf in enumerate(query_models):
+    for idx, model_conf in tqdm(enumerate(query_models),total=len(query_models)):
+        start_time = time.time()
         transformer_model_type = model_conf.get("transformer_model_type")
         model_name = model_conf.get("model_name")
         query_format_type = model_conf.get("query_format_type")
@@ -89,6 +91,7 @@ def run_queries(dataset_df, query_models, output_folder):
         df_copy["Model Response"] = responses
         
         results.append(df_copy)
+        print(f"Done {model_name}: {time.time()-start_time} seconds.")
 
     final_results = pd.concat(results, ignore_index=True)
     

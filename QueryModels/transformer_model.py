@@ -1,5 +1,6 @@
 from transformers import pipeline
 import torch
+from tqdm import tqdm
 
 class TransformerModel:
     def __init__(self, model_name, model_type):
@@ -9,6 +10,7 @@ class TransformerModel:
             model=model_name,
             model_kwargs={"torch_dtype": torch.bfloat16},
             device_map="auto",
+            trust_remote_code=True
             #pad_token_id=self.pipe.model.tokenizer.eos_token_id
             
         )
@@ -20,11 +22,10 @@ class TransformerModel:
         For "conversational_agent", it returns the generated text.
         For "instructional_agent", it extracts the message content accordingly.
         """
-        if formatting == "conversational_agent":
-            outputs = self.pipe(queries, batch_size=batch_size)
-            return [out["generated_text"] for out in outputs]
-        elif formatting == "instructional_agent":
-            outputs = self.pipe(queries, batch_size=batch_size)
-            return [out[0]["generated_text"] for out in outputs]
-        else:
-            raise ValueError(f"Unknown formatting type: {formatting}")
+        outputs = [out  for out in tqdm(self.pipe(queries, batch_size=batch_size,penalty_alpha=0.6,do_sample = True,
+      top_k=5,temperature=0.05,repetition_penalty=1.2,
+      max_new_tokens=500,
+      truncation=True,max_length= 750,
+      pad_token_id=self.pipe.tokenizer.eos_token_id,), total=len(queries))]
+        return [out[0]["generated_text"][-1]["content"] for out in outputs]
+        
