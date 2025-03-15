@@ -72,6 +72,7 @@ def run_queries(dataset_df, query_models, output_folder):
         transformer_model_type = model_conf.get("transformer_model_type")
         model_name = model_conf.get("model_name")
         query_format_type = model_conf.get("query_format_type")
+        model_batch_size = model_conf.get("batch_size", 32)
         print(f"Queries: model_name={model_name}, query_format_type={query_format_type}, transformer_model_type={transformer_model_type}")
 
         model = query_model(model_name=model_name, transformer_model=transformer_model_type)
@@ -80,7 +81,7 @@ def run_queries(dataset_df, query_models, output_folder):
         queries = [query_formatter(prompt) for prompt in dataset_df["Prompt"]]
         print(f"Generated {len(queries)} queries.")
 
-        responses = model.predict_withformatting(queries, "instructional_agent")
+        responses = model.predict_withformatting(queries, "instructional_agent", batch_size=model_batch_size)
 
         # Make a fresh copy of the dataset and add columns for this model's results
         df_copy = dataset_df.copy()
@@ -98,14 +99,14 @@ def run_queries(dataset_df, query_models, output_folder):
 
 
 
-def generate_judging_responses(df, model, query_formatter, query_format_type, prompt_template, column_suffix):
+def generate_judging_responses(df, model, query_formatter, query_format_type, prompt_template, batch_size=32):
     # Abstracts the logic of calling a judging prompt and returning the responses
     prompts = [
         prompt_template.format(query=prompt, error=error, response=response)
         for prompt, error, response in zip(df["Prompt"], df["Error"], df["Model Response"])
     ]
     queries = [query_formatter(p) for p in prompts]
-    responses = model.predict_withformatting(queries, query_format_type)
+    responses = model.predict_withformatting(queries, query_format_type, batch_size)
     return responses
 
 
@@ -146,7 +147,8 @@ def run_judging(preds_file, judges):
         model_name = judge.get("model_name")
         transformer_model_type = judge.get("transformer_model_type")
         query_format_type = judge.get("query_format_type")
-        print(f"Judge: model_name={model_name}, transformer_model_type={transformer_model_type}")
+        model_batch_size = judge.get("batch_size", 32)
+        print(f"Judge: model_name={model_name}, transformer_model_type={transformer_model_type}, batch_size={model_batch_size}")
 
         query_formatter = get_query_formatter(query_format_type)
         model = query_model(model_name=model_name, transformer_model=transformer_model_type)
@@ -155,15 +157,15 @@ def run_judging(preds_file, judges):
         type1_responses = generate_judging_responses(
             df, model, query_formatter, 
             query_format_type, judging_prompt1, 
-            "error_acknowledgement"
+            batch_size=model_batch_size
         )
         df[f"{model_name}_predictions_error_acknowledgement"] = type1_responses
 
         # Type 2: Error Correction
         type2_responses = generate_judging_responses(
             df, model, query_formatter, 
-            query_format_type, judging_prompt2, 
-            "error_correction"
+            query_format_type, judging_prompt2,
+            batch_size=model_batch_size
         )
         df[f"{model_name}_predictions_error_correction"] = type2_responses
 
@@ -201,8 +203,7 @@ def main():
 
     # set to None so won't be undefined
     output_folder = None
-
-    files_to_judge = []
+    preds_file = None
 
     # QUERIES MODE
     if args.mode in ['queries', 'both']:
@@ -238,6 +239,7 @@ def main():
         # We'll usually know the predictions file location, but if not, we'll try to find it
         if not preds_file:
             preds_file = os.path.join(output_folder, "predictions.csv")
+            print(f"Found preds_file: {preds_file}")
             if not os.path.exists(preds_file):
                 print(f"No predictions file found in {preds_file}")
                 sys.exit(1)
