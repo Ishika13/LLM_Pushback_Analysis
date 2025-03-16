@@ -1,0 +1,53 @@
+{
+    "validation_model": [
+   
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "google/gemma-2-9b-it",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 32
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "Qwen/Qwen2.5-7B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 32
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "allenai/OLMo-2-1124-7B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 32
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 32
+        }
+        
+        
+
+    ],
+    "judges": [
+
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "google/gemma-2-9b-it",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 64
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 64
+        }
+    ]
+}
