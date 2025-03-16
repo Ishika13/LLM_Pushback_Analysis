@@ -1,0 +1,56 @@
+{
+    "query_models": [
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "Qwen/Qwen2.5-32B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 128
+            
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "google/gemma-2-27b-it",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 128
+            
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "allenai/OLMo-2-0325-32B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent",
+            "batch_size": 128
+        }
+        
+
+    ],
+    "judges": [
+        {
+            "transformer_model_type": null,
+            "model_name": "flowaicom/Flow-Judge-v0.1",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent"
+        },
+        {
+            "transformer_model_type": null,
+            "model_name": "Qwen/QwQ-32B",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent"
+        }, 
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "google/gemma-2-27b-it",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent"
+        },
+        {
+            "transformer_model_type": "text-generation",
+            "model_name": "allenai/OLMo-2-0325-32B-Instruct",
+            "query_format_type": "instructional_agent",
+            "output_format_type": "instructional_agent"
+        }
+
+    ]
+}
