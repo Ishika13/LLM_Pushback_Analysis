@@ -1,0 +1,22 @@
+{
+    "timestamp": "2025-03-15T18:06:20.554390",
+    "dataset_filename": "dataset_v1.tsv",
+    "config": {
+        "query_models": [
+            {
+                "transformer_model_type": null,
+                "model_name": "gpt-4o",
+                "query_format_type": "completion_agent",
+                "output_format_type": "completion_agent"
+            }
+        ],
+        "judges": [
+            {
+                "transformer_model_type": null,
+                "model_name": "gpt-4o",
+                "query_format_type": "completion_agent",
+                "output_format_type": "completion_agent"
+            }
+        ]
+    }
+}
