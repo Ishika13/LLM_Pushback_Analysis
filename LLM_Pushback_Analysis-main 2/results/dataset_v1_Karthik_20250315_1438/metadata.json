@@ -1,0 +1,52 @@
+{
+    "timestamp": "2025-03-15T14:38:22.002252",
+    "dataset_filename": "dataset_v1.tsv",
+    "config": {
+        "query_models": [
+            {
+                "transformer_model_type": "text-generation",
+                "model_name": "google/gemma-2-9b-it",
+                "query_format_type": "instructional_agent",
+                "output_format_type": "instructional_agent",
+                "batch_size": 128
+            },
+            {
+                "transformer_model_type": "text-generation",
+                "model_name": "Qwen/Qwen2.5-7B-Instruct",
+                "query_format_type": "instructional_agent",
+                "output_format_type": "instructional_agent",
+                "batch_size": 128
+            },
+            {
+                "transformer_model_type": "text-generation",
+                "model_name": "allenai/OLMo-2-1124-7B-Instruct",
+                "query_format_type": "instructional_agent",
+                "output_format_type": "instructional_agent",
+                "batch_size": 128
+            },
+            {
+                "transformer_model_type": "text-generation",
+                "model_name": "meta-llama/Llama-3.1-8B-Instruct",
+                "query_format_type": "instructional_agent",
+                "output_format_type": "instructional_agent",
+                "batch_size": 128
+            }
+        ],
+        "judges": [
+            {
+                "transformer_model_type": "text-generation",
+                "model_name": "google/gemma-2-27b-it",
+                "query_format_type": "instructional_agent",
+                "output_format_type": "instructional_agent",
+                "batch_size": 5
+            },
+            {
+                "transformer_model_type": "text-generation",
+                "model_name": "allenai/OLMo-2-0325-32B-Instruct",
+                "query_format_type": "instructional_agent",
+                "output_format_type": "instructional_agent",
+                "batch_size": 5
+            }
+        ]
+    }
+}
